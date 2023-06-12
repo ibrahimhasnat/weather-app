@@ -2,16 +2,10 @@
 
 import Image from 'next/image'
 import InfoBox from './InfoBox'
-import { useEffect, useState } from 'react'
 
 const WeatherDetails = ({ details }) => {
   
   const { sys, main, weather, wind } = details
-  const [weatherIcon, setWeatherIcon] = useState(null)
-
-  useEffect(() => {
-    setWeatherIcon(`https://openweathermap.org/img/wn/${weather[0].icon}@4x.png`)
-  }, [details])
 
   const temperatureCelsius = main.temp - 273.15
   const feelsLikeInCelsius = main.feels_like - 273.15
@@ -31,17 +25,13 @@ const WeatherDetails = ({ details }) => {
         items-center
         gap-1
       '>
-
-        <div className='w-[170px] h-[170px]'>
-          {weatherIcon && (
-            <Image 
-              src={weatherIcon}
-              alt={weather[0].main}
-              width={170}
-              height={170}
-            />          
-          )}  
-        </div>
+        <Image 
+          src={`https://openweathermap.org/img/wn/${weather[0].icon}@4x.png`}
+          alt={weather[0].main}
+          width={170}
+          height={170}
+          unoptimized
+        />
 
         <div className='text-4xl font-bold'>
           {temperatureCelsius.toFixed(0)} <sup>°C</sup>
